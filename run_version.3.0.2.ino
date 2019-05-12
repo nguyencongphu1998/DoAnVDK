@@ -12,7 +12,7 @@
 #define IN4 10
 #define distanceCompare 30
 #define timeDelay 100
-#define timeDelayTurn 2500 //Canh thời gian để rẻ 1 góc 90 độ
+#define timeDelayTurn 2400 //Canh thời gian để rẻ 1 góc 90 độ
 
 char data;
 int xMaxMinus = 0;
@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
 	
-	if(isRunAhead && getDistanceAhead() < 25)
+	if(isRunAhead && getDistanceAhead() < 30)
 	{
 		stopCar();
 	}
@@ -190,8 +190,8 @@ void goAhead()
 		
 		delay(500);
 		// Xung khi xe đã chạy
-		analogWrite(enB,145);
-		analogWrite(enA,158);
+		analogWrite(enB,130);
+		analogWrite(enA,145);
 	}
 }
 
@@ -200,8 +200,8 @@ void goDown()
 	if(!isRunDown)
 	{
 		// Xung khi bắt đầu chạy
-		analogWrite(enB,152);
-		analogWrite(enA,155);
+		analogWrite(enB,170);
+		analogWrite(enA,170);
 		
 		digitalWrite(IN1,HIGH);
 		digitalWrite(IN2,LOW);
@@ -214,8 +214,8 @@ void goDown()
 		
 		delay(500);
 		// Xung khi xe đã chạy
-		analogWrite(enB,152);
-		analogWrite(enA,155);
+		analogWrite(enB,145);
+		analogWrite(enA,150);
 	}
 }  
 
