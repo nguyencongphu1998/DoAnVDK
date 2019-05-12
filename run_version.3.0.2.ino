@@ -50,34 +50,9 @@ void setup() {
     pinMode(enB,OUTPUT);
 }
 
-//void checkCamBien()
-//{
-//  Serial.print(getDistanceRight());
-//  Serial.println("++++++++++++++");
-//  delay(5000);
-//  Serial.print(getDistanceLeft());
-//  Serial.println("              ");
-//  delay(5000);
-//  Serial.print(getDistanceAhead());
-//  Serial.println("--------------");
-//  delay(5000);  
-//}
-
-void checkBanhXe()
-{
-//  goAhead();
-//  delay(5000);
-//  goDown();
-//  delay(5000);
-  turnRight();
-  delay(5000);
-  turnLeft();
-  delay(5000); 
-}
-
 void loop() {
 	
-	if(isRunAhead && getDistanceAhead() < 15)
+	if(isRunAhead && getDistanceAhead() < 25)
 	{
 		stopCar();
 	}
@@ -88,13 +63,11 @@ void loop() {
 		delay(300);
 		data=Serial.read();
 		isAuto = false;
-		//Serial.print(data);
 		if(data == 'a')
 		{
 			if(getDistanceAhead() > 60)
 			{
 				stopCar();
-        delay(500); 
 				goAhead();
 			}
 			
@@ -102,7 +75,6 @@ void loop() {
 		else if(data == 'b')
 		{
 			stopCar();
-      delay(500); 
 			goDown();
 		}
 		else if(data == 'c')
@@ -112,7 +84,7 @@ void loop() {
 				stopCar(); 
 				turnLeft();
 				delay(timeDelayTurn);
-			  stopCar(); 
+				stopCar(); 
 			}
 			if(getDistanceAhead() > 60)
 			{
@@ -126,7 +98,7 @@ void loop() {
 				stopCar(); 
 				turnRight();
 				delay(timeDelayTurn);           
-			  stopCar();
+			    stopCar();
 			}
 			if(getDistanceAhead() > 60)
 			{ 
@@ -204,16 +176,22 @@ void goAhead()
 {
 	if(!isRunAhead)
 	{
+		// Xung khi bắt đầu chạy
+		analogWrite(enB,145);
+		analogWrite(enA,158);
 		digitalWrite(IN1,LOW);
 		digitalWrite(IN2,HIGH);
 		digitalWrite(IN3,HIGH);
 		digitalWrite(IN4,LOW);
-		analogWrite(enB,151);
-		analogWrite(enA,160);
 		isRunAhead = true;
 		isRunDown = false;
 		isTurnLeft = false;
 		isTurnRight = false;
+		
+		delay(500);
+		// Xung khi xe đã chạy
+		analogWrite(enB,145);
+		analogWrite(enA,158);
 	}
 }
 
@@ -221,16 +199,23 @@ void goDown()
 {
 	if(!isRunDown)
 	{
+		// Xung khi bắt đầu chạy
+		analogWrite(enB,152);
+		analogWrite(enA,155);
+		
 		digitalWrite(IN1,HIGH);
 		digitalWrite(IN2,LOW);
 		digitalWrite(IN3,LOW);
 		digitalWrite(IN4,HIGH);
-		analogWrite(enB,152);
-		analogWrite(enA,155);
 		isRunDown = true;
 		isRunAhead = false;
 		isTurnLeft = false;
 		isTurnRight = false;
+		
+		delay(500);
+		// Xung khi xe đã chạy
+		analogWrite(enB,152);
+		analogWrite(enA,155);
 	}
 }  
 
@@ -339,7 +324,6 @@ void excuteTurnLeft()
 	if(direc == -4) direc = 0;
     
     stopCar();
-	//yCar++;
 }
 
 void excuteTurnRight()
@@ -352,7 +336,6 @@ void excuteTurnRight()
 	if(direc == 4) direc = 0;
 	
 	stopCar();
-    //yCar--;
 }
 
 void excuteGoDown()
@@ -477,7 +460,7 @@ void runCarFirstRound()
   else
   {
 	  stopCar();
-	  delay(5000);
+	  delay(2300);
 	  secondPlan();
   }
   
@@ -534,7 +517,7 @@ void runCarOtherRound()
   	else
   	{
   	  stopCar();
-  	  delay(5000);
+  	  delay(2300);
   	  secondPlan();
   	}
   }
@@ -588,7 +571,7 @@ void runCarOtherRound()
   else
   {
 	  stopCar();
-	  delay(5000);
+	  delay(2300);
 	  secondPlan();
   }
 }
